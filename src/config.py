@@ -17,9 +17,9 @@ DEFAULT_CONFIG_CONTENT = """# miCoach backup
 
 [user]
 # Email address used to login on miCoach website
-email = "simon@arnu.de"
+email = "xxx"
 # Password for miCoach website
-password = "pupsNas3Mc"
+password = "xxx"
 # Connect at launch (works only if email/passwd already set)
 auto_connect = True
 
