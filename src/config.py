@@ -1,12 +1,12 @@
 
 import configobj
-try:
-    from PySide import QtCore, QtGui
-except ImportError:
-    print "Could not load PySide (Qt) librairies, exiting."
-    sys.exit(1)
+#~ try:
+    #~ from PySide import QtCore, QtGui
+#~ except ImportError:
+    #~ print "Could not load PySide (Qt) librairies, exiting."
+    #~ sys.exit(1)
 
-from gui.configwindow import Ui_Dialog
+#~ from gui.configwindow import Ui_Dialog
 
 VERSION = "1.1.4"
 
@@ -17,11 +17,11 @@ DEFAULT_CONFIG_CONTENT = """# miCoach backup
 
 [user]
 # Email address used to login on miCoach website
-email = ""
+email = "simon@arnu.de"
 # Password for miCoach website
-password = ""
+password = "pupsNas3Mc"
 # Connect at launch (works only if email/passwd already set)
-auto_connect = False
+auto_connect = True
 
 [data]
 # Save data as CSV files
@@ -60,7 +60,7 @@ save_xml = True
 xml_path = data/{username}/xml/{date} - {name}.xml
 
 # Save as Garmin TCX file
-save_tcx = False
+save_tcx = True
 # Storage path for TCX files
 # Available fields:
 #  - {username} Your username on miCoach website
@@ -77,73 +77,73 @@ tcx_path = data/{username}/tcx/{date} - {name}.tcx
 
 format_comment = lambda a: '\n'.join(a).replace("# ", "").strip()
 
-class ConfigUI(QtGui.QDialog):
+#~ class ConfigUI(QtGui.QDialog):
     
-    def __init__(self, config=None):
-        QtGui.QDialog.__init__(self)
-        self.ui = Ui_Dialog()
-        self.ui.setupUi(self)
-        self.accepted.connect(self.saveFromUI)
+    #~ def __init__(self, config=None):
+        #~ QtGui.QDialog.__init__(self)
+        #~ self.ui = Ui_Dialog()
+        #~ self.ui.setupUi(self)
+        #~ self.accepted.connect(self.saveFromUI)
         
-        if config:
-            self.config = config
-            self.populateUI()
+        #~ if config:
+            #~ self.config = config
+            #~ self.populateUI()
             
-        self.ui.emailLine.setFocus()
+        #~ self.ui.emailLine.setFocus()
     
-    def populateUI(self):
-        # account tab
-        self.ui.emailLine.setText(self.config['user']['email'])
-        self.ui.emailLine.setToolTip(format_comment(config['user'].comments['email']))
+    #~ def populateUI(self):
+        #~ # account tab
+        #~ self.ui.emailLine.setText(self.config['user']['email'])
+        #~ self.ui.emailLine.setToolTip(format_comment(config['user'].comments['email']))
         
-        self.ui.passwdLine.setText(self.config['user']['password'])
-        self.ui.passwdLine.setToolTip(format_comment(config['user'].comments['password']))
+        #~ self.ui.passwdLine.setText(self.config['user']['password'])
+        #~ self.ui.passwdLine.setToolTip(format_comment(config['user'].comments['password']))
         
-        self.ui.connectBox.setChecked(self.config['user'].as_bool('auto_connect'))
-        self.ui.connectBox.setToolTip(format_comment(config['user'].comments['auto_connect']))
+        #~ self.ui.connectBox.setChecked(self.config['user'].as_bool('auto_connect'))
+        #~ self.ui.connectBox.setToolTip(format_comment(config['user'].comments['auto_connect']))
         
-        # data tab
-        self.ui.saveCsvBox.setChecked(self.config['data'].as_bool('save_csv'))
-        self.ui.saveCsvBox.setToolTip(format_comment(config['data'].comments['save_csv']))
+        #~ # data tab
+        #~ self.ui.saveCsvBox.setChecked(self.config['data'].as_bool('save_csv'))
+        #~ self.ui.saveCsvBox.setToolTip(format_comment(config['data'].comments['save_csv']))
         
-        self.ui.csvPathLine.setText(self.config['data']['csv_path'])
-        self.ui.csvPathLine.setToolTip(format_comment(config['data'].comments['csv_path']))
+        #~ self.ui.csvPathLine.setText(self.config['data']['csv_path'])
+        #~ self.ui.csvPathLine.setToolTip(format_comment(config['data'].comments['csv_path']))
         
-        self.ui.csvFormatLine.setText(self.config['data']['csv_format'])
-        self.ui.csvFormatLine.setToolTip(format_comment(config['data'].comments['csv_format']))
+        #~ self.ui.csvFormatLine.setText(self.config['data']['csv_format'])
+        #~ self.ui.csvFormatLine.setToolTip(format_comment(config['data'].comments['csv_format']))
         
-        self.ui.saveXmlBox.setChecked(self.config['data'].as_bool('save_xml'))
-        self.ui.saveXmlBox.setToolTip(format_comment(config['data'].comments['save_xml']))
+        #~ self.ui.saveXmlBox.setChecked(self.config['data'].as_bool('save_xml'))
+        #~ self.ui.saveXmlBox.setToolTip(format_comment(config['data'].comments['save_xml']))
         
-        self.ui.xmlPathLine.setText(self.config['data']['xml_path'])
-        self.ui.xmlPathLine.setToolTip(format_comment(config['data'].comments['xml_path']))
+        #~ self.ui.xmlPathLine.setText(self.config['data']['xml_path'])
+        #~ self.ui.xmlPathLine.setToolTip(format_comment(config['data'].comments['xml_path']))
         
-        self.ui.saveTcxBox.setChecked(self.config['data'].as_bool('save_tcx'))
-        self.ui.saveTcxBox.setToolTip(format_comment(config['data'].comments['save_tcx']))
+        #~ self.ui.saveTcxBox.setChecked(self.config['data'].as_bool('save_tcx'))
+        #~ self.ui.saveTcxBox.setToolTip(format_comment(config['data'].comments['save_tcx']))
         
-        self.ui.tcxPathLine.setText(self.config['data']['tcx_path'])
-        self.ui.tcxPathLine.setToolTip(format_comment(config['data'].comments['tcx_path']))
+        #~ self.ui.tcxPathLine.setText(self.config['data']['tcx_path'])
+        #~ self.ui.tcxPathLine.setToolTip(format_comment(config['data'].comments['tcx_path']))
         
-    def saveFromUI(self):
-        # account tab
-        self.config['user']['email'] = self.ui.emailLine.text()
-        self.config['user']['password'] = self.ui.passwdLine.text()
-        self.config['user']['auto_connect'] = self.ui.connectBox.isChecked()
+    #~ def saveFromUI(self):
+        #~ # account tab
+        #~ self.config['user']['email'] = self.ui.emailLine.text()
+        #~ self.config['user']['password'] = self.ui.passwdLine.text()
+        #~ self.config['user']['auto_connect'] = self.ui.connectBox.isChecked()
         
-        # data tab
-        self.config['data']['save_csv'] = self.ui.saveCsvBox.isChecked()
-        self.config['data']['csv_path'] = self.ui.csvPathLine.text()
-        self.config['data']['csv_format'] = self.ui.csvFormatLine.text()
+        #~ # data tab
+        #~ self.config['data']['save_csv'] = self.ui.saveCsvBox.isChecked()
+        #~ self.config['data']['csv_path'] = self.ui.csvPathLine.text()
+        #~ self.config['data']['csv_format'] = self.ui.csvFormatLine.text()
         
-        self.config['data']['save_xml'] = self.ui.saveXmlBox.isChecked()
-        self.config['data']['xml_path'] = self.ui.xmlPathLine.text()
+        #~ self.config['data']['save_xml'] = self.ui.saveXmlBox.isChecked()
+        #~ self.config['data']['xml_path'] = self.ui.xmlPathLine.text()
         
-        self.config['data']['save_tcx'] = self.ui.saveTcxBox.isChecked()
-        self.config['data']['tcx_path'] = self.ui.tcxPathLine.text()
+        #~ self.config['data']['save_tcx'] = self.ui.saveTcxBox.isChecked()
+        #~ self.config['data']['tcx_path'] = self.ui.tcxPathLine.text()
         
-        self.config.write()
+        #~ self.config.write()
         
-        self.config.reload()
+        #~ self.config.reload()
 
 
 try:
