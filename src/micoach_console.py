@@ -9,8 +9,8 @@ from libmicoach.user import miCoachUser
 from libmicoach.errors import *
 from storage import Storage
 
-email = 'simon@arnu.de'
-pw = 'PupsNas3Mc'
+email = 'xxx'
+pw = 'xxxx'
 user = miCoachUser(email, pw)
 print user.screenName
 user.workoutList = user.getSchedule().getWorkoutList()
