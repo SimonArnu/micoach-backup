@@ -57,13 +57,14 @@ class Workout(object):
                 activity.add_attribute("Sport", "Running")
         except:
             pass
+        d = str(self.xml.StartDateTimeUTC).split('.')[0] # '.' separate from unsupported microseconds
+        start = datetime.datetime.strptime(d, "%Y-%m-%dT%H:%M:%S")
         
-        activity.add_child("Id", self.xml.CompletedWorkoutID)
+        #~ activity.add_child("Id", self.xml.CompletedWorkoutID)
+        activity.add_child("Id", start.strftime("%Y-%m-%dT%H:%M:%SZ"))
         lap = activity.add_child("Lap")
         
         # StartTime attribute
-        d = str(self.xml.StartDateTimeUTC).split('.')[0] # '.' separate from unsupported microseconds
-        start = datetime.datetime.strptime(d, "%Y-%m-%dT%H:%M:%S")
         lap.add_attribute("StartTime", start.strftime("%Y-%m-%dT%H:%M:%SZ"))
         
         lap.add_child("DistanceMeters", self.xml.TotalDistance.Value)
